@@ -83,6 +83,7 @@ import org.junit.platform.engine.discovery.PackageSelector;
 import org.junit.platform.engine.discovery.UniqueIdSelector;
 import org.junit.platform.launcher.LauncherDiscoveryListener;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+import org.junit.platform.launcher.listeners.discovery.LauncherDiscoveryListeners;
 import org.mockito.ArgumentCaptor;
 
 /**
@@ -753,7 +754,10 @@ class DiscoverySelectorResolverTests {
 	}
 
 	private LauncherDiscoveryRequestBuilder request() {
-		return LauncherDiscoveryRequestBuilder.request().listeners(discoveryListener);
+		return LauncherDiscoveryRequestBuilder.request() //
+				.configurationParameter(
+					LauncherDiscoveryListeners.DEFAULT_DISCOVERY_LISTENER_CONFIGURATION_PROPERTY_NAME, "logging") //
+				.listeners(discoveryListener);
 	}
 
 	private void assertAllSelectorsResolved() {
